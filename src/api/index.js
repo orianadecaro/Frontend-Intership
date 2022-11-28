@@ -9,6 +9,7 @@ function login({ email, password }) {
         }
       }, 1000);
     });
+    
   }
 
   export default login;

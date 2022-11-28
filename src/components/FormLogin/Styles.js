@@ -15,16 +15,17 @@ const Styles = StyleSheet.create({
     },
    
     textContainer:{
-      marginTop:8,
+paddingTop:68,
       alignItems:'center',
       justifyContent:'center',
-      color: 'rgba(29, 31, 38, 0.8)'
+      color: 'rgba(29, 31, 38, 0.8)',
+     
 
     },
     title:{
       fontSize:18,
       TextAlign:'center',
-      marginTop:28,
+      marginTop:18,
       fontWeight:'600',
       lineHeight:32
     },
@@ -36,10 +37,25 @@ const Styles = StyleSheet.create({
       marginTop:4
     },
     inputContainer:{
-      paddingBottom:20,
+      alignItems: 'center',
+      justifyContent: 'center',
+     marginTop:20
+      
      
     },
-    
+    input:{
+      backgroundColor: 'rgba(165, 174, 189, 0.1)',
+      shadowColor: 'rgba(165, 174, 189, 0.2)',
+      color: '#A5AEBD',
+      fontSize: 16,
+      width: 240,
+      height: 48,
+      borderRadius: 12,
+      paddingLeft: 16,
+      borderWidth: 2,
+     marginTop:30
+  },
+   
 
   });
 
