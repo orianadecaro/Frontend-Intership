@@ -1,17 +1,30 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import Mainstack from './src/navigation/Mainstack';
 import { StatusBar } from 'expo-status-bar';
-import { store } from './src/redux/store'
-import { Provider } from 'react-redux'
+import Welcome from './src/screen/Welcome/Welcome'
+
 
 export default function App() {
+  const [Load, setLoad] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoad(false);
+    }, 5000);
+  }, []);
+
+  if (Load) {
+    return <Welcome />;
+  }
+
+
   return (
-    <Provider store={store}>
-      <NavigationContainer >
-        <Mainstack />
-        <StatusBar style="auto" />
-      </NavigationContainer>
-    </Provider>
+
+    <NavigationContainer >
+      <Mainstack />
+      <StatusBar style="auto" />
+    </NavigationContainer>
+
   );
 }

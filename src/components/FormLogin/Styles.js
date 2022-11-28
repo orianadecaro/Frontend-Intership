@@ -1,7 +1,6 @@
 import { StyleSheet } from 'react-native';
 
 
-
 const Styles = StyleSheet.create({
     formContainer: {
       alignItems: 'center',
@@ -36,14 +35,11 @@ const Styles = StyleSheet.create({
       width: 240,
       marginTop:4
     },
-    inputContainer1:{
+    inputContainer:{
       paddingBottom:20,
-      borderColor:'#2F7BFF',
-      color:'#2F7BFF'
+     
     },
-    inputContainer2:{
-      paddingBottom:20
-    }
+    
 
   });
 

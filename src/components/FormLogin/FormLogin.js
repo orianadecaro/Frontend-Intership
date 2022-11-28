@@ -1,93 +1,102 @@
-import React, { useState, useDispatch } from 'react';
-import { Text, View, Alert } from 'react-native';
-import ButtonMain from '../ButtonMain/ButtonMain';
-import InputLogin from '../Input/Input';
-import { AntDesign } from '@expo/vector-icons';
+import React, { useState, useEffect } from 'react';
+import { useForm, Controller } from "react-hook-form"
+import { Text, View } from 'react-native';
 import Styles from './Styles';
-import { useForm, Controller } from "react-hook-form";
+import { AntDesign } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
+import CustomInput from '../CustomInput/CustomInput';
+import CustomButton from '../CustomButton/CustomButton';
+import {email, password} from '../../api/index';
 
 
 function FormLogin() {
-    const [active, setActive] = useState("");
-    const [email, SetEmail] = useState("");
-    const [pass, SetPass] = useState("");
-    const [loading, setLoading]= useState(false);
+    let navigation = useNavigation();
+    const [loading, setLoading] = useState(false);
+    const email_Regex = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    //const pass = data.password
 
-    const dispatch = useDispatch();
+    const data = login;
 
+    const { control, handleSubmit, resetField, setFocus, formState: { errors } } = useForm({ defaultValues: {
+        firstName: '',
+        lastName: ''
+      }});
 
-    const handleSubmit=() => {
-       
-        dispatch(login({
-            email: email,
-            password: passswod,
-            loggedIn: true
-       } ));
+    const onSubmit = data => {
+        //console.log(data)
+        resetField("Email, Password")
+        navigation.navigate('Home')
     }
+ 
+    useEffect(() => {
+        setFocus("Email, Password", { shouldSelect: true });
+      
+      }, [setFocus]);
+    
+      console.log(errors)
 
     return (
-        <View style={Styles.formContainer}>
+        <View style={Styles.formContainer} showsVerticalScrollIndicator={false}>
+
             <View style={Styles.textContainer} >
                 <Text style={Styles.title}>Welcome, Stranger!</Text>
                 <Text style={Styles.subtitle}>Please log in to this form if you wish to pass the exam.</Text>
             </View>
 
-            {active ? (
-                <View style={Styles.inputContainer1}>
+            <View style={Styles.inputContainer}>
 
-                    <InputLogin placeholder={'Email'}
-                        onChange={SetEmail}
-                        value={email}
-                        style={{ borderColor: '#2F7BFF',      borderBottomWidth: 1, }}
-                    />
-                    <InputLogin placeholder={'Password'}
-                        secureTextEntry={true}
-                        keyboardType="password"
-                        onChange={SetPass}
-                        value={pass}
-                        style={{ borderColor: '#2F7BFF',      borderBottomWidth: 1, }}
+                <CustomInput
+                    control={control}
+                    name="Email"
+                    rules={{
+                        required: {
+                            value: true,
+                            message: 'Email is required!'
+                        },
+                        pattern: {
+                            value: email_Regex,
+                            message: "It's not a valid email"
+                        },
+                        validate:
+                            value => value === email_Regex || 'Email is not correct'
 
-                    />
-                </View>) : (
-
-                <View style={Styles.inputContainer2}>
-
-                    <InputLogin placeholder={'Email'}
-                    />
-                    <InputLogin placeholder={'Password'}
-                    />
-                </View>
-
-            )}
+                    }}
+                    placeholder="Email"
+                    
 
 
-            <ButtonMain title={'Login'}
+                />
+
+                <CustomInput
+                    control={control}
+                    name="Password"
+                    rules={{
+                        minLength: 3,
+                        required: {
+                            value: true,
+                            message: 'Password is required!'
+                        },
+                        validate:
+                            value => value === pass || 'Password is not correct'
+                    }}
+                    placeholder="Password"
+                    secureTextEntry={true}
+                   
+
+
+                />
+
+
+            </View>
+
+            <CustomButton title={'Login'}
                 icon2={<AntDesign name="arrowright" size={16} color="white" />}
-                onPress={(() => handleSubmit())} 
-           
-             / > 
-               
-           
-            
-         
+                onPress={handleSubmit(onSubmit)}
+            />
+
+
         </View>
     )
 }
 
-export default FormLogin
- //  onFocus() {
-    this.setState({
-        backgroundColor: 'green'
-    })
-  },
-
-  onBlur() {
-    this.setState({
-      backgroundColor: '#ededed'
-    })
-  },  
-
-<TextInput 
-    onBlur={ () => this.onBlur() }
-    onFocus={ () => this.onFocus() }
-    style={{ height:60, backgroundColor: this.state.backgroundColor, color: this.state.color }}  />
+export default FormLogin;

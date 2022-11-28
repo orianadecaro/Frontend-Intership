@@ -1,25 +1,25 @@
-import React, {useDispatch, useSelector} from 'react';
-import { Image, Text, View } from 'react-native';
-import ButtonMain from '../ButtonMain/ButtonMain';
+import React from 'react'
+import { Text, View,Image } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons'; 
 import Styles from './Styles';
-import User from '../../assets/user.jpeg'
+import image from '../../assets/user.jpeg'
+import { useNavigation } from '@react-navigation/native';
+import CustomButton from '../CustomButton/CustomButton';
 
 
-function HomeCard() {
-    const user = useSelector(selectser);
 
-     const dispatch = useDispatch(); 
-     
-     const handleLogout= () =>{
-        dispatch(logout());
+function HomeCard() { 
+    let navigation = useNavigation();
+
+    const logout = () =>{
+        navigation.navigate('Login')
     }
-    
+
     return (
         <View style={Styles.homeCardContainer} >
-            <Image source={user.image} style={Styles.imageHomeCard}/>
-            <Text style={Styles.textHomeCard}>That’s it, {user.name}!</Text>
-            <ButtonMain icon1={<MaterialIcons name="logout" size={16} color="white" />} title={'Logout'} onPress={()=> handleLogout()}/>
+          <Image source={image} style={Styles.imageHomeCard}/> 
+            <Text style={Styles.textHomeCard}>That’s it, Elon!</Text>
+            <CustomButton icon1={<MaterialIcons name="logout" size={16} color="white" />} title={'Logout'}    onPress={logout}   />
         </View>
     )
 }

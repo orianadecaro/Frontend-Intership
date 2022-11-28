@@ -16,12 +16,13 @@ function Mainstack() {
             <Stack.Screen
                 name="Home"
                 component={Home}
+                options={{ title: "Home", headerShown: false }}
             />
 
             <Stack.Screen
                 name="Login"
                 component={Login}
-                options={{ title: "Home", headerShown: false }}
+
             />
         </Stack.Navigator>
 
